@@ -1,0 +1,248 @@
+/* Custom styles for the web application */
+/* Index.html*/
+body {
+    padding-top: 70px; /* Adjust navbar height */
+    background-color: #f8f9fa; /* Soft background color */
+    font-family: Arial, sans-serif; /* Font style */
+    color: #333; /* Text color */
+    background-image: url('/images/background.jpg'); /* Background image */
+    padding-top: 1px;
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+}
+
+.navbar {
+    background-color: #a0d08f; /* Dark blue navbar background color */
+    padding: 25px;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #fff !important; /* Navbar text color */
+}
+
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+    color: #1abc2d !important; /* Hover color for navbar links */
+}
+.bg-light {
+    background-color:#26a60c !important
+}
+.carousel-caption {
+    background-color: rgba(153, 201, 33, 0.5); /* Semi-transparent background for carousel captions */
+    color: #fff; /* Text color for carousel captions */
+    text-decoration: solid;
+    font-weight: bold;
+}
+.carousel-title {
+    color: #f4f5f1; /* White text color */
+    padding: 2vw; /* Padding around the title */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 4vw; /* Font size of the title */
+    font-weight: bold; /* Bold font weight */
+    text-align: center; /* Center align the title text */
+    position: absolute; /* Position the title absolutely within the carousel item */
+    top: 50%; /* Position the title vertically at the center of the carousel item */
+    left: 50%; /* Center horizontally within the carousel item */
+    transform: translate(-50%, -50%); /* Adjust horizontal and vertical positioning */
+    width: 90%; /* Limit the width of the title for responsiveness */
+}
+
+
+.card {
+    border-radius: 10px; /* Rounded corners for cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect for cards */
+}
+
+.btn-primary {
+    background-color: #1abc9c; /* Primary button color */
+    border-color: #1abc9c; /* Border color for primary button */
+}
+
+.btn-primary:hover {
+    background-color: #17a08b; /* Hover color for primary button */
+    border-color: #17a08b; /* Hover border color for primary button */
+}
+/* for Footer */
+.main-content {
+    flex: 1; /* Allow the main content to grow and take up remaining space */
+}
+.footer {
+    background-color: #333; /* Footer background color */
+    color: #fff; /* Footer text color */
+    padding: 20px 0; /* Padding for footer content */
+}
+/* Add more custom styles as needed */
+
+/*//////////////////////////// for register and login page ///////////////////////////////////////////// */
+/* styles.css */
+.alert {
+    margin-bottom: 20px;
+    display: none; /* Hide error message initially */
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+input[type="number"] {
+    width: 99%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+#errorMsg {
+    color: red;
+    margin-top: 10px;
+}
+
+/* /////////////////////////////////////////for farmer_dashboard page ////////////////////////////// */
+/* Custom CSS for uploaded posts */
+/* Custom CSS for uploaded posts */
+.uploaded-post {
+    max-width: 500px; /* Set the maximum width of the post */
+    margin: 20px auto; /* Center the post horizontally */
+    border: 1px solid #ccc; /* Add a border for style */
+    padding: 10px; /* Add padding for spacing */
+    overflow: hidden;
+}
+
+.uploaded-post img {
+    max-width: 100%; /* Ensure media elements fit within the post */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any default inline styling */
+    margin-bottom: 10px; /* Add spacing between media and caption */
+}
+
+.uploaded-post video {
+    max-width: 100%; /* Set maximum width to prevent full page occupation */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any default inline styling */
+    margin-bottom: 10px; /* Add spacing between video and caption */
+}
+
+.uploaded-post .caption {
+    font-style: italic; /* Style the caption text */
+}
+
+/* Styling for comments section */
+.comment-container {
+    margin-top: 10px; /* Add margin above the comment container */
+}
+
+.comment {
+    background-color: #f2f2f2; /* Background color for comments */
+    padding: 5px; /* Add padding for comment styling */
+    margin-bottom: 5px; /* Add spacing between comments */
+}
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* CSS classes for My Products section */
+.product-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.product-item img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.product-actions {
+    margin-top: 10px;
+}
+
+.product-actions button {
+    margin-right: 5px;
+}
+
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* CSS classes for Search section */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+/* 
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+} */
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#searchResults {
+    margin-top: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.product h2 {
+    margin-bottom: 5px;
+}
+
+.product p {
+    margin-top: 5px;
+    color: #666;
+}
