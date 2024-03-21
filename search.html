@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Product Search</h1>
+        <input type="text" id="searchInput" placeholder="Search for products...">
+        <button onclick="searchProducts()">Search</button>
+        <div id="searchResults"></div>
+    </div>
+    
+    <script>
+        function searchProducts() {
+            var searchTerm = document.getElementById('searchInput').value.trim();
+
+            // Make an Ajax request to the backend to search for products
+            fetch('/search?query=' + searchTerm)
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data); // Function to display search results
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to search for products');
+                });
+        }
+
+        function displaySearchResults(results) {
+            var searchResultsDiv = document.getElementById('searchResults');
+            searchResultsDiv.innerHTML = ''; // Clear previous search results
+
+            if (results.length === 0) {
+                searchResultsDiv.innerHTML = 'No products found';
+            } else {
+                var resultList = document.createElement('ul');
+                results.forEach(product => {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = product.name + ' - ' + product.price;
+                    resultList.appendChild(listItem);
+                });
+                searchResultsDiv.appendChild(resultList);
+            }
+        }
+    </script>
+    <script src="/search.js"></script>
+</body>
+</html>

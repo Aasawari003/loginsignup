@@ -25,25 +25,16 @@ function validateForm() {
     fetch('/register', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
     })
-    .then(data => {
-		alert('User registered successfully');
-        // Determine the redirect URL based on the user's role
-        var redirectUrl;
-        if (role === 'customer') {
-            redirectUrl = 'dashboard-customer.html';
-        } else if (role === 'farmer') {
-            redirectUrl = 'dashboard-farmer.html';
-        } else {
-            // Handle other roles or default redirect
-            redirectUrl = 'default.html';
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to register user');
         }
-        // Redirect the user to the appropriate dashboard
-        window.location.href = redirectUrl;
+        alert('User registered successfully');
+        return response.json();
     })
     .catch(error => {
         console.error('Error:', error);

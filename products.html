@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Farming Assistant</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Farming Assistant</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="crop-advertisements.html">Crop Advertisements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="blogs.html">Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="products.html">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about-us.html">About Us</a> <!-- Added About Us link -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#faq">FAQ</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="loginBtn">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="registerBtn">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Content for Products -->
+    <section class="container mt-5">
+        <h2 class="text-center mb-4">Products</h2>
+        <p>List of products will be displayed here.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-light text-center mt-5">
+        <div class="container">
+            <span class="text-muted">© 2024 Farming Assistant. All rights reserved.</span>
+        </div>
+    </footer>
+    <script>
+        //         In this code:
+
+        // The loadProducts function makes an AJAX GET request to fetch products from the backend and dynamically adds them to the HTML table (#productsList).
+        // Edit and delete functionalities are implemented using event delegation ($(document).on('click', ...)) to handle edit and delete button clicks for dynamically added elements.
+        // The delete functionality sends an AJAX DELETE request to the backend to delete the selected product and then reloads the product list after deletion.
+        // For adding a new product, the code assumes you have a form with the id addProductForm. It captures form submission, sends a POST request to the backend to add the product, reloads the product list, and clears the form.
+        // Ensure that the backend API endpoints (/api/products, /api/products/${productId}) match the actual endpoints on your backend server that handle product operations. Adjust the code as per your backend API specifications and frontend requirements.
+        $(document).ready(function () {
+            // Function to load products from backend and display them on the page
+            function loadProducts() {
+                $.ajax({
+                    url: '/api/products', // Update the URL to match your backend API endpoint
+                    method: 'GET',
+                    success: function (response) {
+                        // Clear existing product list
+                        $('#productsList').empty();
+
+                        // Iterate through the products and display them on the page
+                        response.forEach(function (product) {
+                            var productRow = `
+                        <tr data-product-id="${product.id}">
+                            <td>${product.name}</td>
+                            <td><img src="${product.imageUrl}" alt="${product.name}" style="max-width: 100px;"></td>
+                            <td>${product.price}</td>
+                            <td>${product.description}</td>
+                            <td>
+                                <button class="btn btn-primary edit-button" data-product-id="${product.id}">Edit</button>
+                                <button class="btn btn-danger delete-button" data-product-id="${product.id}">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                            $('#productsList').append(productRow);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Call the loadProducts function to initially load products on page load
+            loadProducts();
+
+            // Function to handle edit button click
+            $(document).on('click', '.edit-button', function () {
+                var productId = $(this).data('product-id');
+                // Redirect or show edit modal based on your implementation
+            });
+
+            // Function to handle delete button click
+            $(document).on('click', '.delete-button', function () {
+                var productId = $(this).data('product-id');
+                // Call backend API to delete the product
+                $.ajax({
+                    url: `/api/products/${productId}`, // Update the URL to match your backend API endpoint for deleting a product
+                    method: 'DELETE',
+                    success: function (response) {
+                        // Reload products after deletion
+                        loadProducts();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+            // Function to add a new product (assuming you have a form for adding products)
+            $('#addProductForm').submit(function (e) {
+                e.preventDefault();
+                // Get form data and call backend API to add the product
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '/api/products', // Update the URL to match your backend API endpoint for adding a product
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Reload products after addition
+                        loadProducts();
+                        // Clear the form after successful addition
+                        $('#addProductForm')[0].reset();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+    </script>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>

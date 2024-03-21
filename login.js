@@ -1,52 +1,34 @@
-function validateForm() {
-    console.log("hello");
-    var email = document.getElementById('email').value.trim();
-    var password = document.getElementById('password').value.trim();
-    
-    // Check if email and password are not empty
-    if (email === '' || password === '') {
-        return false;
-    }
+// login.js
+$(document).ready(function() {
+    $('#loginForm').submit(function(event) {
+        event.preventDefault(); // Prevent form submission
+        var usernameEmail = $('#usernameEmail').val().trim();
+        var password = $('#password').val().trim();
 
-    var userData = {
-        email: email,
-        password: password,
-    };
+        // Validate inputs
+        if (usernameEmail === '' || password === '') {
+            $('#errorMsg').text('Please enter username/email and password.').show();
+            return;
+        }
 
-    // Send login request to backend
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.text(); // Parse the response as text
-        } else {
-            console.error('Error:', response.statusText);
-            throw new Error('Failed to log in. Please try again.');
-        }
-    })
-    .then(data => {
-        // Determine the redirect URL based on the user's role
-        var redirectUrl;
-        if (data === '/dashboard-customer.html') {
-            redirectUrl = 'dashboard-customer.html';
-        } else if (data === '/dashboard-farmer.html') {
-            redirectUrl = 'dashboard-farmer.html';
-        } else {
-            redirectUrl = 'default.html';
-        }
-        // Redirect the user to the appropriate dashboard
-        window.location.href = redirectUrl;
-    })
-    .catch(error => {
-        console.error('Error:', error.message);
-        alert(error.message);
+        // Send login request to backend
+        $.ajax({
+            type: 'POST',
+            url: 'http://your-backend-url/login', // Replace with your actual backend URL
+            contentType: 'application/json',
+            data: JSON.stringify({ usernameEmail: usernameEmail, password: password }),
+            success: function(response) {
+                // Handle successful authentication
+                if (response.success) {
+                    window.location.href = 'dashboard.html'; // Redirect to dashboard on successful login
+                } else {
+                    $('#errorMsg').text('Invalid username/email or password.').show();
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                $('#errorMsg').text('Error occurred while logging in. Please try again.').show();
+            }
+        });
     });
-
-    return true; // Form is valid, proceed with submission
-}
+});

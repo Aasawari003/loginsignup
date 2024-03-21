@@ -1,49 +1,32 @@
 // Function to add a new product to the My Products section
-function addProduct(){
-    // Fetch the farmer's email from the input field
-    var email = document.getElementById('email').value.trim();
-    var productName = document.getElementById('productName').value.trim();
-    var imagePath = document.getElementById('imagePath').value.trim();
-    var priceQuantity = document.getElementById('priceQuantity').value.trim();
-    var productDescription = document.getElementById('productDescription').value.trim();
+function addProduct(name, imageUrl, price, description, productId) {
+    var tbody = document.getElementById('productsList');
 
-    // Check if any field is empty
-    if(email==="" || productName==="" || imagePath==="" || priceQuantity==="" || productDescription===""){
-        alert("Please fill all details");
-        return false;
-    }
+    var newRow = document.createElement('tr');
+    newRow.setAttribute('data-product-id', productId); // Set productId as a data attribute for future reference
+    newRow.innerHTML = `
+        <td>${name}</td>
+        <td><img src="${imageUrl}" alt="${name}" style="max-width: 100px;"></td>
+        <td>${price}</td>
+        <td>${description}</td>
+        <td>
+            <button class="btn btn-primary">Edit</button>
+            <button class="btn btn-danger" onclick="deleteProduct(${productId})">Delete</button> <!-- Add onclick event for deleting -->
+        </td>
+    `;
+    tbody.appendChild(newRow);
 
-    // Create an object with product data including the farmer's email
-var productData = {
-    email: email,
-    productName: productName,
-    imagePath: imagePath,
-    priceQuantity: priceQuantity,
-    productDescription: productDescription
-};
 
-fetch('/products', {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    },
-    body: JSON.stringify(productData) // Convert object to JSON string
-})
-.then(response => response.json())
-    .then(data => {
-		console.log("if saved")
-    	console.log('Product saved:', data);
-		alert('User registered successfully');
-        // Determine the redirect URL based on the user's role
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to register user');
-    });
-
-    return true; // Form is valid, proceed with submission
+    //     Handle Product Addition: After the farmer successfully adds a product through the dashboard, you need to make an AJAX request to fetch the updated list of products from the backend and then update the UI on the products.html page.
+    // Handle Product Deletion: If the farmer deletes a product from the dashboard, you should similarly update the UI on the products.html page to reflect the changes.
+    //     The addProduct function now also calls a hypothetical loadProductsOnProductsPage function to reload the products list on the products.html page after adding a new product.
+    // The deleteProduct function sends an AJAX DELETE request to the backend to delete the product and then calls removeProductFromUI to update the UI on the products.html page.
+    // The addProductToBackend function sends an AJAX POST request to add the product to the backend and then calls addProduct to update the UI on the products.html page
+    // After adding the product, reload the products list on products.html page
+    loadProductsOnProductsPage(); // Assuming you have a function to load products on products.html
 }
+
+
 // Function to delete a product
 function deleteProduct(productId) {
     // Implement AJAX call to delete product from backend
@@ -98,8 +81,8 @@ function addProductToBackend(name, imageUrl, price, description) {
 }
 
 // Function to handle form submission for adding a new product
-/*document.getElementById('postProductForm').addEventListener('submit', function (event) {
-   event.preventDefault();
+document.getElementById('postProductForm').addEventListener('submit', function (event) {
+    event.preventDefault();
 
     var productName = document.getElementById('productName').value;
     var productImageUrl = document.getElementById('productImage').value; // Changed to productImage
@@ -115,5 +98,5 @@ function addProductToBackend(name, imageUrl, price, description) {
     // Reset the form
     this.reset();
 });
-*/
+
 
